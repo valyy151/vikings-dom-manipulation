@@ -134,6 +134,12 @@ class War {
 const bjorn = new Viking('Bjorn', 100, 25);
 const skadi = new Viking('Skadi', 100, 35);
 const brumhilda = new Viking('Brumhilda', 100, 20);
+const bjorn1 = new Viking('Bjorn', 100, 25);
+const skadi1 = new Viking('Skadi', 100, 35);
+const brumhilda1 = new Viking('Brumhilda', 100, 20);
+const bjorn2 = new Viking('Bjorn', 100, 25);
+const skadi2 = new Viking('Skadi', 100, 35);
+const brumhilda2 = new Viking('Brumhilda', 100, 20);
 
 const henry = new Saxon(100, 15);
 const edward = new Saxon(100, 35);
@@ -148,18 +154,28 @@ bloodyWar.addSaxon(horace);
 bloodyWar.addViking(bjorn);
 bloodyWar.addViking(skadi);
 bloodyWar.addViking(brumhilda);
+bloodyWar.addViking(bjorn1);
+bloodyWar.addViking(skadi1);
+bloodyWar.addViking(brumhilda1);
+bloodyWar.addViking(bjorn2);
+bloodyWar.addViking(skadi2);
+bloodyWar.addViking(brumhilda2);
 
-function updateArmiesDisplay() {
+function showArmies() {
 	const vikingDiv = document.getElementById('vikingArmy');
 	const saxonDiv = document.getElementById('saxonArmy');
 
-	const vikingUl = document.getElementById('vikingUl');
 	const vikingArmy = bloodyWar.vikingArmy;
 
 	for (viking of vikingArmy) {
-		const newLi = document.createElement('li');
-		newLi.prepend(viking.name);
-		vikingUl.prepend(newLi);
+		const newUl = document.createElement('ul');
+		const newName = document.createElement('li');
+		const newHealth = document.createElement('li');
+
+		newName.append(viking.name);
+		newHealth.append(viking.health);
+		newUl.append(newName, newHealth);
+		vikingDiv.append(newUl);
 	}
 
 	const saxonUl = document.getElementById('saxonUl');
@@ -172,4 +188,4 @@ function updateArmiesDisplay() {
 	}
 }
 
-updateArmiesDisplay();
+showArmies();
