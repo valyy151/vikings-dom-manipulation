@@ -46,11 +46,12 @@ class Saxon extends Soldier {
 	receiveDamage(damage) {
 		this.health -= damage;
 		if (this.health <= 0) {
-			console.log(`A ${this.name} has died in combat`);
-			return `A ${this.name} has died in combat`;
+			console.log(`${this.name} has died in combat`);
+			return `${this.name} has died in combat`;
 		} else if (this.health > 0) {
-			console.log(`A ${this.name} has received ${damage} points of damage`);
-			return `A ${this.name} has received ${damage} points of damage`;
+			console.log(`${this.name} has received ${damage} points of damage`);
+			// return `${this.name} has received ${damage} points of damage`;
+			return;
 		}
 	}
 }
@@ -61,9 +62,11 @@ class War {
 		this.vikingArmy = [];
 		this.saxonArmy = [];
 	}
+
 	addViking(Viking) {
 		this.vikingArmy.push(Viking);
 	}
+
 	addSaxon(Saxon) {
 		this.saxonArmy.push(Saxon);
 	}
@@ -71,6 +74,7 @@ class War {
 	randomViking() {
 		return this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)];
 	}
+
 	randomSaxon() {
 		return this.saxonArmy[Math.floor(Math.random() * this.saxonArmy.length)];
 	}
@@ -84,9 +88,10 @@ class War {
 		if (randomSaxon.health <= 0) {
 			this.saxonArmy.splice(randomSaxon, 1);
 		} else console.log(`Remaining Health: ${randomSaxon.health}`);
-
+		this.updateArmies();
 		return attack;
 	}
+
 	saxonAttack() {
 		let randomSaxon = this.randomSaxon();
 		let randomViking = this.randomViking();
@@ -99,7 +104,7 @@ class War {
 			randomViking.battleCry();
 			console.log(`Remaining Health: ${randomViking.health}`);
 		} else console.log(`Remaining Health: ${randomViking.health}`);
-
+		this.updateArmies();
 		return attack;
 	}
 
@@ -127,6 +132,84 @@ class War {
 			return 'Saxons have fought for their lives and survived another day...';
 		} else {
 			return 'Vikings and Saxons are still in the thick of battle.';
+		}
+	}
+
+	showArmies() {
+		const vikingDiv = document.getElementById('vikingArmy');
+		const saxonDiv = document.getElementById('saxonArmy');
+
+		for (this.viking of this.vikingArmy) {
+			const newH1 = document.createElement('h1');
+			const newUl = document.createElement('ul');
+			const newName = document.createElement('li');
+			const newStrength = document.createElement('li');
+			const newHealth = document.createElement('li');
+
+			newH1.classList.add('h1');
+			newUl.classList.add('ul');
+			newName.classList.add('name');
+
+			newStrength.classList.add('blue');
+			newHealth.classList.add('green');
+			newHealth.classList.add('health');
+
+			newName.append(this.viking.name);
+			newHealth.append(this.viking.health);
+			newStrength.append(this.viking.strength);
+
+			newUl.append(newName, newStrength, newHealth);
+
+			vikingDiv.append(newUl);
+		}
+
+		for (this.saxon of this.saxonArmy) {
+			const newH1 = document.createElement('h1');
+			const newUl = document.createElement('ul');
+			const newName = document.createElement('li');
+			const newStrength = document.createElement('li');
+			const newHealth = document.createElement('li');
+
+			newH1.classList.add('h1');
+			newUl.classList.add('ul');
+			newName.classList.add('name');
+
+			newStrength.classList.add('blue');
+			newHealth.classList.add('green');
+			newHealth.classList.add('health');
+
+			newName.append(this.saxon.name);
+			newStrength.append(this.saxon.strength);
+			newHealth.append(this.saxon.health);
+
+			newUl.append(newName, newStrength, newHealth);
+
+			saxonDiv.append(newUl);
+		}
+		return;
+	}
+
+	updateArmies() {
+		const everyHealthLi = document.querySelectorAll('.health');
+
+		for (const li of everyHealthLi) {
+			const nameOfViking = li.parentNode.querySelector('li.name').textContent;
+			for (const viking of this.vikingArmy) {
+				if (viking.name === nameOfViking) {
+					li.textContent = viking.health;
+					break;
+				}
+			}
+		}
+
+		for (const li of everyHealthLi) {
+			const nameOfsaxon = li.parentNode.querySelector('li.name').textContent;
+			for (const saxon of this.saxonArmy) {
+				if (saxon.name === nameOfsaxon) {
+					li.textContent = saxon.health;
+					break;
+				}
+			}
 		}
 	}
 }
@@ -173,51 +256,4 @@ bloodyWar.addViking(viking7);
 bloodyWar.addViking(viking8);
 bloodyWar.addViking(viking9);
 
-const showArmies = () => {
-	const vikingArmy = bloodyWar.vikingArmy;
-
-	const vikingDiv = document.getElementById('vikingArmy');
-	const saxonDiv = document.getElementById('saxonArmy');
-
-	const saxonUl = document.getElementById('saxonUl');
-	const saxonArmy = bloodyWar.saxonArmy;
-
-	for (viking of vikingArmy) {
-		const newUl = document.createElement('ul');
-		const newName = document.createElement('li');
-		const newStrength = document.createElement('li');
-		const newHealth = document.createElement('li');
-
-		newStrength.classList.add('blue');
-		newHealth.classList.add('green');
-
-		newName.append(viking.name);
-		newHealth.append(viking.health);
-		newStrength.append(viking.strength);
-
-		newUl.append(newName, newStrength, newHealth);
-
-		vikingDiv.append(newUl);
-	}
-
-	for (saxon of saxonArmy) {
-		const newUl = document.createElement('ul');
-		const newName = document.createElement('li');
-		const newStrength = document.createElement('li');
-		const newHealth = document.createElement('li');
-
-		newStrength.classList.add('blue');
-		newHealth.classList.add('green');
-
-		newName.append(saxon.name);
-		newStrength.append(saxon.strength);
-		newHealth.append(saxon.health);
-
-		newUl.append(newName, newStrength, newHealth);
-
-		saxonDiv.append(newUl);
-	}
-	return;
-};
-
-showArmies();
+bloodyWar.showArmies();

@@ -15,6 +15,7 @@ h2 {
 	border-bottom: 1px solid gray;
 	height: 40px;
 	width: 250px;
+	font-weight: 400;
 }
 
 ul {
@@ -42,4 +43,12 @@ li {
 	color: rgb(53, 107, 255);
 	text-align: left;
 	display: flex;
+}
+
+#vikings {
+	color: rgb(255, 0, 0);
+}
+
+#saxons {
+	color: rgb(216, 216, 33);
 }
