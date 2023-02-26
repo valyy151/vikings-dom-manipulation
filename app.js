@@ -117,9 +117,11 @@ class War {
 		}
 	}
 
-	showArmies() {
+	createArmies() {
 		const vikingDiv = document.getElementById('vikingArmy');
 		const saxonDiv = document.getElementById('saxonArmy');
+		const vikingHealthSum = document.querySelector('#vikingHealthSum');
+		const saxonHealthSum = document.querySelector('#saxonHealthSum');
 
 		const createSoldierList = (army, armyDiv) => {
 			army.forEach((soldier) => {
@@ -143,10 +145,47 @@ class War {
 
 		createSoldierList(this.vikingArmy, vikingDiv);
 		createSoldierList(this.saxonArmy, saxonDiv);
+
+		let vikingTotalHealth = 0;
+		let saxonTotalHealth = 0;
+		this.vikingArmy.forEach((soldier) => {
+			vikingTotalHealth += soldier.health;
+		});
+		this.saxonArmy.forEach((soldier) => {
+			saxonTotalHealth += soldier.health;
+		});
+		vikingHealthSum.textContent = vikingTotalHealth;
+		saxonHealthSum.textContent = saxonTotalHealth;
 	}
 
 	updateArmies() {
 		const healthLis = document.querySelectorAll('.health');
+
+		let vikingTotalHealth = 0;
+		let saxonTotalHealth = 0;
+		this.vikingArmy.forEach((soldier) => {
+			vikingTotalHealth += soldier.health;
+		});
+		this.saxonArmy.forEach((soldier) => {
+			saxonTotalHealth += soldier.health;
+		});
+		document.querySelector('#vikingHealthSum').textContent = vikingTotalHealth;
+		document.querySelector('#saxonHealthSum').textContent = saxonTotalHealth;
+
+		if (vikingTotalHealth <= 334) {
+			document.querySelector('#vikingHealthSum').classList.add('red');
+		} else if (vikingTotalHealth <= 667) {
+			document.querySelector('#vikingHealthSum').classList.add('yellow');
+		} else {
+			document.querySelector('#vikingHealthSum').classList.add('green');
+		}
+		if (saxonTotalHealth <= 334) {
+			document.querySelector('#saxonHealthSum').classList.add('red');
+		} else if (saxonTotalHealth <= 667) {
+			document.querySelector('#saxonHealthSum').classList.add('yellow');
+		} else {
+			document.querySelector('#saxonHealthSum').classList.add('green');
+		}
 
 		for (const li of healthLis) {
 			const name = li.parentNode.querySelector('.name').textContent;
@@ -168,7 +207,6 @@ class War {
 		}
 	}
 }
-let count = 0;
 
 const viking1 = new Viking('Bjorn', 100, 36);
 const viking2 = new Viking('Helga', 100, 18);
@@ -198,4 +236,4 @@ const vikingSoldiers = [viking1, viking2, viking3, viking4, viking5, viking6, vi
 saxonSoldiers.forEach((saxon) => bloodyWar.addSaxon(saxon));
 vikingSoldiers.forEach((viking) => bloodyWar.addViking(viking));
 
-bloodyWar.showArmies();
+bloodyWar.createArmies();
