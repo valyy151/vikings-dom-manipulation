@@ -190,24 +190,14 @@ class War {
 	}
 
 	updateArmies() {
-		const everyHealthLi = document.querySelectorAll('.health');
+		const healthLis = document.querySelectorAll('.health');
 
-		for (const li of everyHealthLi) {
-			const nameOfViking = li.parentNode.querySelector('li.name').textContent;
-			for (const viking of this.vikingArmy) {
-				if (viking.name === nameOfViking) {
-					li.textContent = viking.health;
-					break;
-				}
-			}
-		}
+		for (const li of healthLis) {
+			const name = li.parentNode.querySelector('li.name').textContent;
 
-		for (const li of everyHealthLi) {
-			const nameOfsaxon = li.parentNode.querySelector('li.name').textContent;
-			for (const saxon of this.saxonArmy) {
-				if (saxon.name === nameOfsaxon) {
-					li.textContent = saxon.health;
-					break;
+			for (const soldier of [...this.vikingArmy, ...this.saxonArmy]) {
+				if (soldier.name === name) {
+					li.textContent = soldier.health;
 				}
 			}
 		}
