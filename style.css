@@ -32,11 +32,7 @@ li {
 	display: flex;
 	justify-content: flex-start;
 	width: 30px;
-}
-
-.green {
-	color: rgb(34, 253, 34);
-	font-weight: 700;
+	text-align: center;
 }
 
 .blue {
@@ -51,4 +47,16 @@ li {
 
 #saxons {
 	color: rgb(216, 216, 33);
+}
+
+.green {
+	color: rgb(34, 253, 34);
+}
+
+.yellow {
+	color: rgb(216, 216, 33);
+}
+
+.red {
+	color: rgb(224, 12, 12);
 }

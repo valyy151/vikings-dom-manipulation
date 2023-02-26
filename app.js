@@ -31,7 +31,6 @@ class Viking extends Soldier {
 	}
 
 	battleCry() {
-		console.log('TO VALHALLA!');
 		return 'Odin Owns You All!';
 	}
 }
@@ -85,7 +84,9 @@ class War {
 		if (randomSaxon.health <= 0) {
 			this.saxonArmy.splice(randomSaxon, 1);
 		} else console.log(`Remaining Health: ${randomSaxon.health}`);
+
 		this.updateArmies();
+
 		return attack;
 	}
 
@@ -99,27 +100,11 @@ class War {
 			this.vikingArmy.splice(randomViking, 1);
 		} else if (randomViking.health <= 20) {
 			randomViking.battleCry();
-			console.log(`Remaining Health: ${randomViking.health}`);
 		} else console.log(`Remaining Health: ${randomViking.health}`);
+
 		this.updateArmies();
+
 		return attack;
-	}
-
-	armiesAttack(typeOfAttack) {
-		let randomSaxon = this.randomSaxon();
-		let randomViking = this.randomViking();
-
-		if (typeOfAttack === 'Viking') {
-			randomSaxon.receiveDamage(randomViking.strength);
-			if (randomSaxon.health <= 0) {
-				this.saxonArmy.splice(randomSaxon, 1);
-			}
-		} else if (typeOfAttack === 'Saxon') {
-			randomViking.receiveDamage(randomSaxon.strength);
-			if (randomViking.health <= 0) {
-				this.vikingArmy.splice(randomViking, 1);
-			}
-		}
 	}
 
 	showStatus() {
@@ -128,7 +113,7 @@ class War {
 		} else if (this.vikingArmy.length === 0) {
 			return 'Saxons have fought for their lives and survived another day...';
 		} else {
-			return 'Vikings and Saxons are still in the thick of battle.';
+			return 'Vikings and Saxons are still in the midst of battle.';
 		}
 	}
 
@@ -169,52 +154,48 @@ class War {
 			for (const soldier of [...this.vikingArmy, ...this.saxonArmy]) {
 				if (soldier.name === name) {
 					li.textContent = soldier.health;
+					if (soldier.health <= 0) {
+						li.parentElement.remove();
+					} else if (soldier.health <= 33) {
+						li.classList.add('red');
+					} else if (soldier.health <= 67) {
+						li.classList.add('yellow');
+					} else {
+						li.classList.add('green');
+					}
 				}
 			}
 		}
 	}
 }
+let count = 0;
 
-const viking1 = new Viking('Bjorn', 100, 30);
-const viking2 = new Viking('Helga', 100, 20);
-const viking3 = new Viking('Eirik', 100, 30);
-const viking4 = new Viking('Freya', 100, 20);
-const viking5 = new Viking('Skadi', 100, 20);
-const viking6 = new Viking('Thora', 100, 20);
-const viking7 = new Viking('Leifn', 100, 30);
+const viking1 = new Viking('Bjorn', 100, 36);
+const viking2 = new Viking('Helga', 100, 18);
+const viking3 = new Viking('Eirik', 100, 28);
+const viking4 = new Viking('Freya', 100, 15);
+const viking5 = new Viking('Skadi', 100, 22);
+const viking6 = new Viking('Thora', 100, 15);
+const viking7 = new Viking('Leifn', 100, 18);
 const viking8 = new Viking('Sigyn', 100, 20);
-const viking9 = new Viking('Gunnr', 100, 25);
+const viking9 = new Viking('Gunnr', 100, 29);
 
-const saxon1 = new Saxon('Aethel', 100, 20);
-const saxon2 = new Saxon('Cynon', 100, 15);
-const saxon3 = new Saxon('Eadie', 100, 25);
-const saxon4 = new Saxon('Ethel', 100, 25);
-const saxon5 = new Saxon('Hilda', 100, 20);
-const saxon6 = new Saxon('Leofa', 100, 15);
-const saxon7 = new Saxon('Oswin', 100, 40);
-const saxon8 = new Saxon('Tilda', 100, 15);
-const saxon9 = new Saxon('Wulfr', 100, 35);
+const saxon1 = new Saxon('Aethel', 100, 17);
+const saxon2 = new Saxon('Cynon', 100, 20);
+const saxon3 = new Saxon('Eadie', 100, 15);
+const saxon4 = new Saxon('Ethel', 100, 16);
+const saxon5 = new Saxon('Hilda', 100, 19);
+const saxon6 = new Saxon('Leofa', 100, 18);
+const saxon7 = new Saxon('Oswin', 100, 15);
+const saxon8 = new Saxon('Tilda', 100, 18);
+const saxon9 = new Saxon('Wulfr', 100, 24);
 
 const bloodyWar = new War();
 
-bloodyWar.addSaxon(saxon1);
-bloodyWar.addSaxon(saxon2);
-bloodyWar.addSaxon(saxon3);
-bloodyWar.addSaxon(saxon4);
-bloodyWar.addSaxon(saxon5);
-bloodyWar.addSaxon(saxon6);
-bloodyWar.addSaxon(saxon7);
-bloodyWar.addSaxon(saxon8);
-bloodyWar.addSaxon(saxon9);
+const saxonSoldiers = [saxon1, saxon2, saxon3, saxon4, saxon5, saxon6, saxon7, saxon8, saxon9];
+const vikingSoldiers = [viking1, viking2, viking3, viking4, viking5, viking6, viking7, viking8, viking9];
 
-bloodyWar.addViking(viking1);
-bloodyWar.addViking(viking2);
-bloodyWar.addViking(viking3);
-bloodyWar.addViking(viking4);
-bloodyWar.addViking(viking5);
-bloodyWar.addViking(viking6);
-bloodyWar.addViking(viking7);
-bloodyWar.addViking(viking8);
-bloodyWar.addViking(viking9);
+saxonSoldiers.forEach((saxon) => bloodyWar.addSaxon(saxon));
+vikingSoldiers.forEach((viking) => bloodyWar.addViking(viking));
 
 bloodyWar.showArmies();
