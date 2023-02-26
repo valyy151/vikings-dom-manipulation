@@ -26,7 +26,6 @@ class Viking extends Soldier {
 			console.log(`${this.name} has died in act of combat`);
 			return `${this.name} has died in act of combat`;
 		} else if (this.health > 0) {
-			console.log(`${this.name} has received ${damage} points of damage`);
 			return `${this.name} has received ${damage} points of damage`;
 		}
 	}
@@ -49,9 +48,7 @@ class Saxon extends Soldier {
 			console.log(`${this.name} has died in combat`);
 			return `${this.name} has died in combat`;
 		} else if (this.health > 0) {
-			console.log(`${this.name} has received ${damage} points of damage`);
-			// return `${this.name} has received ${damage} points of damage`;
-			return;
+			return `${this.name} has received ${damage} points of damage`;
 		}
 	}
 }
@@ -139,61 +136,35 @@ class War {
 		const vikingDiv = document.getElementById('vikingArmy');
 		const saxonDiv = document.getElementById('saxonArmy');
 
-		for (this.viking of this.vikingArmy) {
-			const newH1 = document.createElement('h1');
-			const newUl = document.createElement('ul');
-			const newName = document.createElement('li');
-			const newStrength = document.createElement('li');
-			const newHealth = document.createElement('li');
+		const createSoldierList = (army, armyDiv) => {
+			army.forEach((soldier) => {
+				const newUl = document.createElement('ul');
+				const newName = document.createElement('li');
+				const newStrength = document.createElement('li');
+				const newHealth = document.createElement('li');
 
-			newH1.classList.add('h1');
-			newUl.classList.add('ul');
-			newName.classList.add('name');
+				newName.classList.add('name');
+				newStrength.classList.add('blue');
+				newHealth.classList.add('green', 'health');
 
-			newStrength.classList.add('blue');
-			newHealth.classList.add('green');
-			newHealth.classList.add('health');
+				newName.textContent = soldier.name;
+				newStrength.textContent = soldier.strength;
+				newHealth.textContent = soldier.health;
 
-			newName.append(this.viking.name);
-			newHealth.append(this.viking.health);
-			newStrength.append(this.viking.strength);
+				newUl.append(newName, newStrength, newHealth);
+				armyDiv.append(newUl);
+			});
+		};
 
-			newUl.append(newName, newStrength, newHealth);
-
-			vikingDiv.append(newUl);
-		}
-
-		for (this.saxon of this.saxonArmy) {
-			const newH1 = document.createElement('h1');
-			const newUl = document.createElement('ul');
-			const newName = document.createElement('li');
-			const newStrength = document.createElement('li');
-			const newHealth = document.createElement('li');
-
-			newH1.classList.add('h1');
-			newUl.classList.add('ul');
-			newName.classList.add('name');
-
-			newStrength.classList.add('blue');
-			newHealth.classList.add('green');
-			newHealth.classList.add('health');
-
-			newName.append(this.saxon.name);
-			newStrength.append(this.saxon.strength);
-			newHealth.append(this.saxon.health);
-
-			newUl.append(newName, newStrength, newHealth);
-
-			saxonDiv.append(newUl);
-		}
-		return;
+		createSoldierList(this.vikingArmy, vikingDiv);
+		createSoldierList(this.saxonArmy, saxonDiv);
 	}
 
 	updateArmies() {
 		const healthLis = document.querySelectorAll('.health');
 
 		for (const li of healthLis) {
-			const name = li.parentNode.querySelector('li.name').textContent;
+			const name = li.parentNode.querySelector('.name').textContent;
 
 			for (const soldier of [...this.vikingArmy, ...this.saxonArmy]) {
 				if (soldier.name === name) {
