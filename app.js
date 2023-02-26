@@ -39,9 +39,9 @@ class Viking extends Soldier {
 
 // Saxon
 class Saxon extends Soldier {
-	constructor(health, strength) {
+	constructor(name, health, strength) {
 		super(health, strength);
-		this.name = 'Saxon';
+		this.name = name;
 	}
 	receiveDamage(damage) {
 		this.health -= damage;
@@ -131,61 +131,93 @@ class War {
 	}
 }
 
-const bjorn = new Viking('Bjorn', 100, 25);
-const skadi = new Viking('Skadi', 100, 35);
-const brumhilda = new Viking('Brumhilda', 100, 20);
-const bjorn1 = new Viking('Bjorn', 100, 25);
-const skadi1 = new Viking('Skadi', 100, 35);
-const brumhilda1 = new Viking('Brumhilda', 100, 20);
-const bjorn2 = new Viking('Bjorn', 100, 25);
-const skadi2 = new Viking('Skadi', 100, 35);
-const brumhilda2 = new Viking('Brumhilda', 100, 20);
+const viking1 = new Viking('Bjorn', 100, 30);
+const viking2 = new Viking('Helga', 100, 20);
+const viking3 = new Viking('Eirik', 100, 30);
+const viking4 = new Viking('Freya', 100, 20);
+const viking5 = new Viking('Skadi', 100, 20);
+const viking6 = new Viking('Thora', 100, 20);
+const viking7 = new Viking('Leifn', 100, 30);
+const viking8 = new Viking('Sigyn', 100, 20);
+const viking9 = new Viking('Gunnr', 100, 25);
 
-const henry = new Saxon(100, 15);
-const edward = new Saxon(100, 35);
-const horace = new Saxon(100, 20);
+const saxon1 = new Saxon('Aethel', 100, 20);
+const saxon2 = new Saxon('Cynon', 100, 15);
+const saxon3 = new Saxon('Eadie', 100, 25);
+const saxon4 = new Saxon('Ethel', 100, 25);
+const saxon5 = new Saxon('Hilda', 100, 20);
+const saxon6 = new Saxon('Leofa', 100, 15);
+const saxon7 = new Saxon('Oswin', 100, 40);
+const saxon8 = new Saxon('Tilda', 100, 15);
+const saxon9 = new Saxon('Wulfr', 100, 35);
 
 const bloodyWar = new War();
 
-bloodyWar.addSaxon(henry);
-bloodyWar.addSaxon(edward);
-bloodyWar.addSaxon(horace);
+bloodyWar.addSaxon(saxon1);
+bloodyWar.addSaxon(saxon2);
+bloodyWar.addSaxon(saxon3);
+bloodyWar.addSaxon(saxon4);
+bloodyWar.addSaxon(saxon5);
+bloodyWar.addSaxon(saxon6);
+bloodyWar.addSaxon(saxon7);
+bloodyWar.addSaxon(saxon8);
+bloodyWar.addSaxon(saxon9);
 
-bloodyWar.addViking(bjorn);
-bloodyWar.addViking(skadi);
-bloodyWar.addViking(brumhilda);
-bloodyWar.addViking(bjorn1);
-bloodyWar.addViking(skadi1);
-bloodyWar.addViking(brumhilda1);
-bloodyWar.addViking(bjorn2);
-bloodyWar.addViking(skadi2);
-bloodyWar.addViking(brumhilda2);
+bloodyWar.addViking(viking1);
+bloodyWar.addViking(viking2);
+bloodyWar.addViking(viking3);
+bloodyWar.addViking(viking4);
+bloodyWar.addViking(viking5);
+bloodyWar.addViking(viking6);
+bloodyWar.addViking(viking7);
+bloodyWar.addViking(viking8);
+bloodyWar.addViking(viking9);
 
-function showArmies() {
-	const vikingDiv = document.getElementById('vikingArmy');
-	const saxonDiv = document.getElementById('saxonArmy');
-
+const showArmies = () => {
 	const vikingArmy = bloodyWar.vikingArmy;
 
-	for (viking of vikingArmy) {
-		const newUl = document.createElement('ul');
-		const newName = document.createElement('li');
-		const newHealth = document.createElement('li');
-
-		newName.append(viking.name);
-		newHealth.append(viking.health);
-		newUl.append(newName, newHealth);
-		vikingDiv.append(newUl);
-	}
+	const vikingDiv = document.getElementById('vikingArmy');
+	const saxonDiv = document.getElementById('saxonArmy');
 
 	const saxonUl = document.getElementById('saxonUl');
 	const saxonArmy = bloodyWar.saxonArmy;
 
-	for (saxon of saxonArmy) {
-		const newLi = document.createElement('li');
-		newLi.prepend(saxon.name);
-		saxonUl.prepend(newLi);
+	for (viking of vikingArmy) {
+		const newUl = document.createElement('ul');
+		const newName = document.createElement('li');
+		const newStrength = document.createElement('li');
+		const newHealth = document.createElement('li');
+
+		newStrength.classList.add('blue');
+		newHealth.classList.add('green');
+
+		newName.append(viking.name);
+		newHealth.append(viking.health);
+		newStrength.append(viking.strength);
+
+		newUl.append(newName, newStrength, newHealth);
+
+		vikingDiv.append(newUl);
 	}
-}
+
+	for (saxon of saxonArmy) {
+		const newUl = document.createElement('ul');
+		const newName = document.createElement('li');
+		const newStrength = document.createElement('li');
+		const newHealth = document.createElement('li');
+
+		newStrength.classList.add('blue');
+		newHealth.classList.add('green');
+
+		newName.append(saxon.name);
+		newStrength.append(saxon.strength);
+		newHealth.append(saxon.health);
+
+		newUl.append(newName, newStrength, newHealth);
+
+		saxonDiv.append(newUl);
+	}
+	return;
+};
 
 showArmies();
