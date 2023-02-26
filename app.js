@@ -24,9 +24,10 @@ class Viking extends Soldier {
 		this.health -= damage;
 		if (this.health <= 0) {
 			console.log(`${this.name} has died in act of combat`);
-			return `${this.name} has died in act of combat`;
+			// return `${this.name} has died in act of combat`;
 		} else if (this.health > 0) {
-			return `${this.name} has received ${damage} points of damage`;
+			console.log(`${this.name} has received ${damage} points of damage`);
+			// return `${this.name} has received ${damage} points of damage`;
 		}
 	}
 
@@ -45,9 +46,11 @@ class Saxon extends Soldier {
 		this.health -= damage;
 		if (this.health <= 0) {
 			console.log(`${this.name} has died in combat`);
-			return `${this.name} has died in combat`;
+			console.log(`${this.name} has died in combat`);
+			// return `${this.name} has died in combat`;
 		} else if (this.health > 0) {
-			return `${this.name} has received ${damage} points of damage`;
+			console.log(`${this.name} has received ${damage} points of damage`);
+			// return `${this.name} has received ${damage} points of damage`;
 		}
 	}
 }
@@ -237,3 +240,14 @@ saxonSoldiers.forEach((saxon) => bloodyWar.addSaxon(saxon));
 vikingSoldiers.forEach((viking) => bloodyWar.addViking(viking));
 
 bloodyWar.createArmies();
+
+const attackSaxons = document.getElementById('attackSaxons');
+const attackVikings = document.getElementById('attackVikings');
+
+attackSaxons.addEventListener('click', () => {
+	bloodyWar.vikingAttack();
+});
+
+attackVikings.addEventListener('click', () => {
+	bloodyWar.saxonAttack();
+});
