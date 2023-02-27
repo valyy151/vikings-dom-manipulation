@@ -1,6 +1,7 @@
 body {
 	display: flex;
 	justify-content: space-evenly;
+	background: #003375;
 }
 
 section {
@@ -14,11 +15,12 @@ section {
 button {
 	padding: 10px 30px;
 	border-radius: 10px;
-	border: 1px solid black;
+	border: 2px solid rgb(255, 255, 255);
 	cursor: pointer;
 	background: none;
 	font-size: 1.5em;
 	margin: 50px auto;
+	color: white;
 }
 
 .headers {
@@ -69,6 +71,7 @@ li {
 	justify-content: flex-start;
 	width: 30px;
 	text-align: center;
+	color: white;
 }
 
 .blue {
@@ -85,8 +88,16 @@ li {
 	color: rgb(216, 216, 33);
 }
 
+#vikingArmy {
+	background: #660505;
+}
+
+#saxonArmy {
+	background: rgb(148, 130, 53);
+}
+
 .green {
-	color: rgb(34, 253, 34);
+	color: rgb(33, 233, 33);
 }
 
 .yellow {
