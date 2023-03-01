@@ -32,7 +32,7 @@ class Viking extends Soldier {
 	}
 
 	battleCry() {
-		return 'Odin Owns You All!';
+		console.log('Odin Owns You All!');
 	}
 }
 
@@ -45,7 +45,6 @@ class Saxon extends Soldier {
 	receiveDamage(damage) {
 		this.health -= damage;
 		if (this.health <= 0) {
-			console.log(`${this.name} has died in combat`);
 			console.log(`${this.name} has died in combat`);
 			// return `${this.name} has died in combat`;
 		} else if (this.health > 0) {
@@ -85,8 +84,11 @@ class War {
 		let attack = randomSaxon.receiveDamage(randomViking.strength);
 
 		if (randomSaxon.health <= 0) {
-			this.saxonArmy.splice(randomSaxon, 1);
-		} else console.log(`Remaining Health: ${randomSaxon.health}`);
+			let index = this.saxonArmy.indexOf(randomSaxon);
+			this.saxonArmy.splice(index, 1);
+		} else {
+			console.log(`Remaining Health: ${randomSaxon.health}`);
+		}
 
 		this.updateArmies();
 
@@ -100,10 +102,13 @@ class War {
 		let attack = randomViking.receiveDamage(randomSaxon.strength);
 
 		if (randomViking.health <= 0) {
-			this.vikingArmy.splice(randomViking, 1);
+			let index = this.vikingArmy.indexOf(randomViking);
+			this.vikingArmy.splice(index, 1);
 		} else if (randomViking.health <= 20) {
 			randomViking.battleCry();
-		} else console.log(`Remaining Health: ${randomViking.health}`);
+		} else {
+			console.log(`Remaining Health: ${randomViking.health}`);
+		}
 
 		this.updateArmies();
 
