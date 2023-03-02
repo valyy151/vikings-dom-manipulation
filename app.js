@@ -21,10 +21,16 @@ class Viking extends Soldier {
 	}
 
 	receiveDamage(damage) {
-		this.health -= damage;
+		super.receiveDamage(damage);
 		if (this.health <= 0) {
 			console.log(`${this.name} has died in act of combat`);
-		} else if (this.health > 0) {
+			const vikingList = document.querySelectorAll('#vikingArmy ul');
+			vikingList.forEach((li) => {
+				if (li.firstChild.textContent === this.name) {
+					li.remove();
+				}
+			});
+		} else {
 			console.log(`${this.name} has received ${damage} points of damage`);
 		}
 	}
@@ -40,11 +46,18 @@ class Saxon extends Soldier {
 		super(health, strength);
 		this.name = name;
 	}
+
 	receiveDamage(damage) {
-		this.health -= damage;
+		super.receiveDamage(damage);
 		if (this.health <= 0) {
 			console.log(`${this.name} has died in combat`);
-		} else if (this.health > 0) {
+			const saxonList = document.querySelectorAll('#saxonArmy ul');
+			saxonList.forEach((li) => {
+				if (li.firstChild.textContent === this.name) {
+					li.remove();
+				}
+			});
+		} else {
 			console.log(`${this.name} has received ${damage} points of damage`);
 		}
 	}
@@ -77,7 +90,7 @@ class War {
 		let randomSaxon = this.randomSaxon();
 		let randomViking = this.randomViking();
 
-		let attack = randomSaxon.receiveDamage(randomViking.strength);
+		randomSaxon.receiveDamage(randomViking.strength);
 
 		if (randomSaxon.health <= 0) {
 			let index = this.saxonArmy.indexOf(randomSaxon);
@@ -88,27 +101,25 @@ class War {
 
 		this.updateArmies();
 
-		return attack;
+		return randomViking.strength;
 	}
 
 	saxonAttack() {
 		let randomSaxon = this.randomSaxon();
 		let randomViking = this.randomViking();
 
-		let attack = randomViking.receiveDamage(randomSaxon.strength);
+		randomViking.receiveDamage(randomSaxon.strength);
 
 		if (randomViking.health <= 0) {
 			let index = this.vikingArmy.indexOf(randomViking);
 			this.vikingArmy.splice(index, 1);
 		} else if (randomViking.health <= 20) {
 			randomViking.battleCry();
-		} else {
 			console.log(`Remaining Health: ${randomViking.health}`);
 		}
+		console.log(`Remaining Health: ${randomViking.health}`);
 
 		this.updateArmies();
-
-		return attack;
 	}
 
 	showStatus() {
@@ -166,7 +177,6 @@ class War {
 
 	updateArmies() {
 		//Loops through every soldier and accumulates their health to update as total health of the army
-
 		let vikingTotalHealth = 0;
 		let saxonTotalHealth = 0;
 		this.vikingArmy.forEach((soldier) => {
