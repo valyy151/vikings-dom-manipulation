@@ -24,15 +24,13 @@ class Viking extends Soldier {
 		this.health -= damage;
 		if (this.health <= 0) {
 			console.log(`${this.name} has died in act of combat`);
-			// return `${this.name} has died in act of combat`;
 		} else if (this.health > 0) {
 			console.log(`${this.name} has received ${damage} points of damage`);
-			// return `${this.name} has received ${damage} points of damage`;
 		}
 	}
 
 	battleCry() {
-		console.log('Odin Owns You All!');
+		console.log('ODIN OWNS YOU ALL!!!');
 	}
 }
 
@@ -46,10 +44,8 @@ class Saxon extends Soldier {
 		this.health -= damage;
 		if (this.health <= 0) {
 			console.log(`${this.name} has died in combat`);
-			// return `${this.name} has died in combat`;
 		} else if (this.health > 0) {
 			console.log(`${this.name} has received ${damage} points of damage`);
-			// return `${this.name} has received ${damage} points of damage`;
 		}
 	}
 }
@@ -125,12 +121,13 @@ class War {
 		}
 	}
 
-	createArmies() {
+	renderArmies() {
 		const vikingDiv = document.getElementById('vikingArmy');
 		const saxonDiv = document.getElementById('saxonArmy');
 		const vikingHealthSum = document.querySelector('#vikingHealthSum');
 		const saxonHealthSum = document.querySelector('#saxonHealthSum');
 
+		//Function that creates either a viking or a saxon army from the data, and renders it on the page
 		const createSoldierList = (army, armyDiv) => {
 			army.forEach((soldier) => {
 				const newUl = document.createElement('ul');
@@ -150,10 +147,11 @@ class War {
 				armyDiv.append(newUl);
 			});
 		};
-
+		//Calling the function above on the 2 armies
 		createSoldierList(this.vikingArmy, vikingDiv);
 		createSoldierList(this.saxonArmy, saxonDiv);
 
+		//Displaying the total health of the armies
 		let vikingTotalHealth = 0;
 		let saxonTotalHealth = 0;
 		this.vikingArmy.forEach((soldier) => {
@@ -167,7 +165,7 @@ class War {
 	}
 
 	updateArmies() {
-		const healthLis = document.querySelectorAll('.health');
+		//Loops through every soldier and accumulates their health to update as total health of the army
 
 		let vikingTotalHealth = 0;
 		let saxonTotalHealth = 0;
@@ -180,6 +178,7 @@ class War {
 		document.querySelector('#vikingHealthSum').textContent = vikingTotalHealth;
 		document.querySelector('#saxonHealthSum').textContent = saxonTotalHealth;
 
+		//Changes colors of the health numbers depending on how damaged the army is
 		if (vikingTotalHealth <= 334) {
 			document.querySelector('#vikingHealthSum').classList.add('red');
 		} else if (vikingTotalHealth <= 667) {
@@ -194,6 +193,9 @@ class War {
 		} else {
 			document.querySelector('#saxonHealthSum').classList.add('green');
 		}
+
+		//Changes colors of the soldiers' health depending on how damaged they are
+		const healthLis = document.querySelectorAll('.health');
 
 		for (const li of healthLis) {
 			const name = li.parentNode.querySelector('.name').textContent;
@@ -236,6 +238,7 @@ const saxon7 = new Saxon('Oswin', 100, 15);
 const saxon8 = new Saxon('Tilda', 100, 18);
 const saxon9 = new Saxon('Wulfr', 100, 24);
 
+//Starting a war and drafting the soldiers
 const bloodyWar = new War();
 
 const saxonSoldiers = [saxon1, saxon2, saxon3, saxon4, saxon5, saxon6, saxon7, saxon8, saxon9];
@@ -244,8 +247,9 @@ const vikingSoldiers = [viking1, viking2, viking3, viking4, viking5, viking6, vi
 saxonSoldiers.forEach((saxon) => bloodyWar.addSaxon(saxon));
 vikingSoldiers.forEach((viking) => bloodyWar.addViking(viking));
 
-bloodyWar.createArmies();
+bloodyWar.renderArmies();
 
+//Buttons for attacking the armiess
 const attackSaxons = document.getElementById('attackSaxons');
 const attackVikings = document.getElementById('attackVikings');
 
