@@ -1,6 +1,5 @@
 body {
-	display: flex;
-	justify-content: space-evenly;
+	
 	background: #68a9ff;
 }
 
@@ -40,7 +39,7 @@ button {
 }
 
 h2 {
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid rgb(255, 255, 255);
 	width: 300px;
 	height: 55px;
 	font-weight: 400;
@@ -73,25 +72,25 @@ li {
 }
 
 .blue {
-	color: rgb(53, 107, 255);
+	color: rgb(56, 95, 201);
 	text-align: left;
 	display: flex;
 }
 
 #vikings {
-	color: rgb(255, 0, 0);
+	color: rgb(255, 30, 30);
 }
 
 #saxons {
-	color: rgb(216, 216, 33);
+	color: rgb(255, 255, 56);
 }
 
 #vikingArmy {
-	background: #660505;
+	background: #913c3c;
 }
 
 #saxonArmy {
-	background: rgb(148, 130, 53);
+	background: rgb(179, 149, 19);
 }
 
 .green {
@@ -127,4 +126,15 @@ select {
 
 #startGame {
 	font-size: 0.8em;
+}
+
+
+#sectionWrap{
+	display: flex;
+}
+
+#sectionWrap button{
+	display: none;
+	height: 50px;
+	margin-top: 55vh;
 }

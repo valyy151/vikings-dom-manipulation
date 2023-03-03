@@ -115,7 +115,6 @@ class War {
 			this.vikingArmy.splice(index, 1);
 		} else if (randomViking.health <= 20) {
 			randomViking.battleCry();
-			console.log(`Remaining Health: ${randomViking.health}`);
 		}
 		console.log(`Remaining Health: ${randomViking.health}`);
 
@@ -259,44 +258,70 @@ vikingSoldiers.forEach((viking) => bloodyWar.addViking(viking));
 
 bloodyWar.renderArmies();
 
-//Buttons for attacking the armiess
-const attackSaxons = document.getElementById('attackSaxons');
-const attackVikings = document.getElementById('attackVikings');
-
-// attackSaxons.addEventListener('click', () => {
-// 	bloodyWar.vikingAttack();
-// });
-
-// attackVikings.addEventListener('click', () => {
-// 	bloodyWar.saxonAttack();
-// });
-
 const startGameButton = document.getElementById('startGame');
+const rollDiceButton = document.getElementById('rollButton');
+const attackButton = document.getElementById('attackButton');
+const attackVikings = document.getElementById('attackVikings');
+const attackSaxons = document.getElementById('attackSaxons');
+
 const selectTeam = document.getElementById('teamSelect');
 
 const section = document.getElementById('section');
 const article = document.getElementById('article');
+
 const vikingDiv = document.getElementById('vikingDiv');
 const saxonDiv = document.getElementById('saxonDiv');
 
-let playerTeam;
-let enemyTeam;
+let player;
+let enemy;
+
+const teams = {
+	1: { player: 'Vikings', enemy: 'Saxons', playerDiv: vikingDiv },
+	2: { player: 'Saxons', enemy: 'Vikings', playerDiv: saxonDiv },
+};
 
 startGameButton.addEventListener('click', () => {
-	if (selectTeam.value == 1) {
-		console.log('Value 1');
-		playerTeam = 'Vikings';
-		enemyTeam = 'Saxons';
-		console.log(`Your Team is ${playerTeam} and the Enemy Team is ${enemyTeam}`);
+	const team = teams[selectTeam.value];
+
+	if (team) {
+		player = team.player;
+		enemy = team.enemy;
+		currentPlayer = player;
+
+		console.log(`Your Team is ${player} and the Enemy Team is ${enemy}`);
+
+		team.playerDiv.style.order = 1;
+
 		article.style.display = 'none';
 		section.style.display = 'flex';
-		vikingDiv.style.order = 1;
-	} else if (selectTeam.value == 2) {
-		playerTeam = 'Saxons';
-		enemyTeam = 'Vikings';
-		console.log(`Your Team is ${playerTeam} and the Enemy Team is ${enemyTeam}`);
-		article.style.display = 'none';
-		section.style.display = 'flex';
-		saxonDiv.style.order = 1;
+
+		rollDiceButton.style.display = 'block';
+		attackButton.style.display = 'block';
+		attackVikings.style.display = 'block';
+		attackSaxons.style.display = 'block';
 	}
+});
+
+rollDiceButton.addEventListener('click', () => {
+	rollDice();
+});
+
+let dice1;
+let dice2;
+
+function rollDice() {
+	dice1 = Math.round(Math.random() * 5) + 1;
+	dice2 = Math.round(Math.random() * 5) + 1;
+	console.log(dice1, dice2);
+	return [dice1, dice2];
+}
+
+let currentPlayer;
+
+attackVikings.addEventListener('click', () => {
+	bloodyWar.saxonAttack();
+});
+
+attackSaxons.addEventListener('click', () => {
+	bloodyWar.vikingAttack();
 });
