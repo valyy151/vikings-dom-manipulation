@@ -270,3 +270,5 @@ attackSaxons.addEventListener('click', () => {
 attackVikings.addEventListener('click', () => {
 	bloodyWar.saxonAttack();
 });
+
+const startGameButton = document.getElementById('startGame');

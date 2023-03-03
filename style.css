@@ -1,11 +1,11 @@
 body {
 	display: flex;
 	justify-content: space-evenly;
-	background: #003375;
+	background: #68a9ff;
 }
 
 section {
-	display: flex;
+	display: none;
 	align-items: center;
 	justify-content: center;
 	height: 875px;
@@ -106,4 +106,27 @@ li {
 
 .red {
 	color: rgb(224, 12, 12);
+}
+
+article {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 20%;
+	color: white;
+	font-size: x-large;
+}
+
+select {
+	text-align: center;
+	font-size: 1em;
+	background: #4990ee;
+	color: white;
+	border: 1px solid white;
+	padding: 5px;
+	border-radius: 10px;
+}
+
+#startGame {
+	font-size: 0.8em;
 }
